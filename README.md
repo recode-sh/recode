@@ -2,7 +2,7 @@
 
 This repository contains all the entities, actions and features used by all the other packages (including the [Recode CLI](https://github.com/recode-sh/cli)). 
 
-*(For the clean architecture aficionados, we are in the innermost circle: the entities one.)*
+*(For the clean architecture aficionados, we are in the innermost circle (ie: the entities one).)*
 
 ## Table of contents
 - [Requirements](#requirements)
