@@ -11,6 +11,7 @@ func RemoveDevEnv(
 	recodeConfig *entities.Config,
 	cluster *entities.Cluster,
 	devEnv *entities.DevEnv,
+	preRemoveHook entities.HookRunner,
 ) error {
 
 	devEnv.Status = entities.DevEnvStatusRemoving
@@ -49,6 +50,19 @@ func RemoveDevEnv(
 
 	if removeDevEnvErr != nil {
 		return removeDevEnvErr
+	}
+
+	if preRemoveHook != nil {
+		err = preRemoveHook.Run(
+			cloudService,
+			recodeConfig,
+			cluster,
+			devEnv,
+		)
+
+		if err != nil {
+			return err
+		}
 	}
 
 	return RemoveDevEnvInConfig(

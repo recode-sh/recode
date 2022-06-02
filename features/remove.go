@@ -109,25 +109,13 @@ func (r RemoveFeature) Execute(input RemoveInput) error {
 		r.stepper.StartTemporaryStep(step)
 	}
 
-	if input.PreRemoveHook != nil {
-		err = input.PreRemoveHook.Run(
-			cloudService,
-			recodeConfig,
-			cluster,
-			devEnv,
-		)
-
-		if err != nil {
-			return handleError(err)
-		}
-	}
-
 	err = actions.RemoveDevEnv(
 		r.stepper,
 		cloudService,
 		recodeConfig,
 		cluster,
 		devEnv,
+		input.PreRemoveHook,
 	)
 
 	if err != nil {
